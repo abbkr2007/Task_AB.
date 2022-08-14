@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, redirect, request
+from flask import Flask, url_for, render_template, redirect, request,flash
 from flask_sqlalchemy import SQLAlchemy
  
 app = Flask(__name__)
@@ -12,8 +12,8 @@ class Todo(db.Model):
     email = db.Column(db.String(100))
     priority = db.Column(db.String(100))
     complete = db.Column(db.Boolean)
-    
-    
+
+
 @app.route('/')
 def homepage():
     todo_list = Todo.query.all()
@@ -31,6 +31,11 @@ def submit():
         )
     db.session.add(new_todo)
     db.session.commit()
+    fo= open("task.txt", "a") 
+    fo.writelines(description + "\r\n") 
+    fo.writelines(email + "\r\n")
+    fo.writelines(priority + "\r\n" + "\r\n")
+    # fo.close()
     return redirect(url_for("homepage"))
 
 
@@ -39,8 +44,8 @@ def clear(id):
     todo = Todo.query.filter_by(id=id).first()
     db.session.delete(todo)
     db.session.commit()
+    
     return redirect(url_for("homepage"))
-
 
 if __name__ == '__main__':
     db.create_all()
