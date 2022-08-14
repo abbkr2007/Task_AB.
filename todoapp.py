@@ -44,7 +44,6 @@ def clear(id):
     todo = Todo.query.filter_by(id=id).first()
     db.session.delete(todo)
     db.session.commit()
-    
     return redirect(url_for("homepage"))
 
 if __name__ == '__main__':
