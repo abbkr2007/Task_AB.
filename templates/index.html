@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Todolist Application Task_AB{% endblock %}
+{%block body %}
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div>
+      <H5 align="center">Todolist</H5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#S/N</th>
+            <th scope="col">Task Descriptions</th>
+            <th scope="col">Email</th>
+            <th scope="col">Priority</th>
+            
+            <th scope="col">Action</th>
+          </tr>
+          <tbody class="table-group-divider">
+        </thead>
+        {% for todo in todo_list %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ todo.id }}</th>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.email }}</td>
+            <td>{{ todo.priority }}</td>
+            <td> <a href="/clear/{{ todo.id }}"><i class="fa fa-trash" aria-hidden="true"></i>Clear</a></td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table> 
+      <br />
+      
+      <div class="col"><hr></div>
+      <H5 align="center">Add Task</H5>
+      <form form" action="/submit" method="post">
+        <div class="mb-3">
+            <textarea name="description" class="form-control" placeholder="Task Description" id="exampleFormControlTextarea1" rows="3" required></textarea>
+          </div>
+        <div class="mb-3">
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Email address" id="exampleFormControl" required>
+          </div>
+          <div class="mb-3">
+          <select class="form-select" name="priority" aria-label="Default select example" required>
+            <option value='' selected>---Select Priority---</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button align="center" type="submit" class="btn btn-primary mb-2">Add Task</button>
+        </div>
+      </form>
+
+      
+    </div>
+  </div>
+{% endblock %}
